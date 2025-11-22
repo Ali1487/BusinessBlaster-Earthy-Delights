@@ -1,0 +1,2482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Earthy Delights - Fresh Organic Products Delivered</title>
+    <meta name="description" content="Order fresh organic fruits, vegetables, juices, and local products. Same-day delivery with AR product view, live tracking, and blockchain traceability.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #10b981;
+            --primary-dark: #059669;
+            --primary-light: #34d399;
+            --secondary-color: #f59e0b;
+            --accent-color: #8b5cf6;
+            --text-dark: #1f2937;
+            --text-light: #6b7280;
+            --bg-light: #f0fdf4;
+            --white: #ffffff;
+            --shadow: 0 4px 12px rgba(0,0,0,0.08);
+            --shadow-hover: 0 8px 24px rgba(0,0,0,0.12);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            color: var(--text-dark);
+            background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+        /* Video Background */
+        .video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .video-background video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.25;
+            filter: brightness(1.1) saturate(1.2);
+        }
+
+        /* Sticky Header */
+        .header {
+            position: sticky;
+            top: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: var(--shadow);
+            z-index: 1000;
+            transition: var(--transition);
+        }
+
+        .header-top {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+            padding: 8px 0;
+            color: var(--white);
+            font-size: 13px;
+        }
+
+        .header-top .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-main {
+            padding: 16px 0;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 32px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 32px;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+
+        .logo i {
+            font-size: 42px;
+            background: linear-gradient(135deg, #10b981, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: leafFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes leafFloat {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-5px) rotate(5deg); }
+        }
+
+        .search-bar {
+            flex: 1;
+            max-width: 600px;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 14px 120px 14px 48px;
+            border: 2px solid #e0e0e0;
+            border-radius: 50px;
+            font-size: 15px;
+            transition: var(--transition);
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 4px rgba(45, 122, 62, 0.1);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-light);
+        }
+
+        .voice-search-btn {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--primary-color);
+            color: var(--white);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .voice-search-btn:hover {
+            background: var(--primary-dark);
+        }
+
+        .voice-search-btn.listening {
+            background: var(--secondary-color);
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 24px;
+            align-items: center;
+        }
+
+        .nav-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            color: var(--text-dark);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-btn i {
+            font-size: 24px;
+        }
+
+        .nav-btn:hover {
+            color: var(--primary-color);
+        }
+
+        .badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--secondary-color);
+            color: var(--white);
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        /* Navigation Menu */
+        .nav-menu {
+            background: var(--white);
+            border-top: 1px solid #e0e0e0;
+            padding: 12px 0;
+        }
+
+        .nav-menu ul {
+            display: flex;
+            list-style: none;
+            gap: 32px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .nav-menu a {
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 15px;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: var(--transition);
+        }
+
+        .nav-menu a:hover {
+            background: var(--primary-color);
+            color: var(--white);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Hero Section with Parallax */
+        .hero {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.95), rgba(139, 92, 246, 0.85)),
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400"><rect fill="%2310b981" width="1200" height="400"/><path fill="%238b5cf6" opacity="0.4" d="M0,200 Q300,100 600,200 T1200,200 L1200,400 L0,400 Z"/></svg>');
+            background-size: cover;
+            background-attachment: fixed;
+            padding: 100px 0;
+            color: var(--white);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 50%, rgba(139, 92, 246, 0.3), transparent 50%),
+                        radial-gradient(circle at 70% 50%, rgba(245, 158, 11, 0.2), transparent 50%);
+            animation: gradientShift 8s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .hero h1 {
+            font-size: 64px;
+            margin-bottom: 20px;
+            animation: fadeInDown 1s;
+            font-weight: 800;
+            text-shadow: 2px 4px 12px rgba(0, 0, 0, 0.2);
+            letter-spacing: -1px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero p {
+            font-size: 24px;
+            margin-bottom: 32px;
+            opacity: 0.95;
+            animation: fadeInUp 1s;
+            font-weight: 500;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-features {
+            display: flex;
+            justify-content: center;
+            gap: 48px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+
+        .hero-feature {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 16px;
+        }
+
+        .hero-feature i {
+            font-size: 28px;
+            color: var(--accent-color);
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Quick Category Cards */
+        .quick-categories {
+            padding: 60px 0;
+            background: var(--white);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 48px;
+            color: var(--text-dark);
+            position: relative;
+            padding-bottom: 16px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--primary-color);
+            border-radius: 2px;
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 24px;
+        }
+
+        .category-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(240, 253, 244, 0.9));
+            padding: 36px 20px;
+            border-radius: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 3px solid transparent;
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .category-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            opacity: 0;
+            transition: var(--transition);
+            z-index: 0;
+        }
+
+        .category-card:hover::before {
+            opacity: 0.1;
+        }
+
+        .category-card:hover {
+            transform: translateY(-12px) scale(1.05);
+            box-shadow: 0 12px 32px rgba(16, 185, 129, 0.3);
+            border-color: var(--primary-color);
+        }
+
+        .category-card i {
+            font-size: 56px;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 16px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .category-card h3,
+        .category-card p {
+            position: relative;
+            z-index: 1;
+        }
+
+        .category-card h3 {
+            font-size: 18px;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+        }
+
+        .category-card p {
+            font-size: 14px;
+            color: var(--text-light);
+        }
+
+        /* Products Section */
+        .products-section {
+            padding: 60px 0;
+        }
+
+        .filter-tabs {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .filter-tab {
+            padding: 12px 28px;
+            background: var(--white);
+            border: 2px solid #e0e0e0;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .filter-tab:hover, .filter-tab.active {
+            background: var(--primary-color);
+            color: var(--white);
+            border-color: var(--primary-color);
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 28px;
+        }
+
+        .product-card {
+            background: var(--white);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            cursor: pointer;
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            background: var(--secondary-color);
+            color: var(--white);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            z-index: 1;
+        }
+
+        .product-badge.organic {
+            background: var(--primary-color);
+        }
+
+        .product-badge.local {
+            background: var(--accent-color);
+            color: var(--text-dark);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 240px;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .product-card:hover .product-image {
+            transform: scale(1.05);
+        }
+
+        .product-actions {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .product-card:hover .product-actions {
+            opacity: 1;
+        }
+
+        .action-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--white);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .action-btn:hover {
+            background: var(--primary-color);
+            color: var(--white);
+        }
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .product-category {
+            font-size: 13px;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .product-name {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text-dark);
+        }
+
+        .product-rating {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .stars {
+            color: var(--accent-color);
+            font-size: 14px;
+        }
+
+        .rating-count {
+            color: var(--text-light);
+            font-size: 13px;
+        }
+
+        .product-price {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .current-price {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .original-price {
+            font-size: 16px;
+            color: var(--text-light);
+            text-decoration: line-through;
+        }
+
+        .discount {
+            background: var(--secondary-color);
+            color: var(--white);
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .product-features {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 16px;
+        }
+
+        .feature-tag {
+            font-size: 11px;
+            padding: 4px 10px;
+            background: var(--bg-light);
+            border-radius: 12px;
+            color: var(--text-dark);
+        }
+
+        .add-to-cart-btn {
+            width: 100%;
+            padding: 14px;
+            background: var(--primary-color);
+            color: var(--white);
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .add-to-cart-btn:hover {
+            background: var(--primary-dark);
+        }
+
+        /* Features Section */
+        .features-section {
+            background: linear-gradient(135deg, #10b981 0%, #8b5cf6 50%, #f59e0b 100%);
+            color: var(--white);
+            padding: 100px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .features-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><circle cx="200" cy="200" r="150" fill="rgba(255,255,255,0.05)"/><circle cx="800" cy="400" r="200" fill="rgba(255,255,255,0.03)"/><circle cx="1000" cy="600" r="180" fill="rgba(255,255,255,0.04)"/></svg>');
+            animation: floatPattern 20s linear infinite;
+        }
+
+        @keyframes floatPattern {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-50px); }
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-top: 48px;
+        }
+
+        .feature-item {
+            text-align: center;
+            padding: 32px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            transition: var(--transition);
+        }
+
+        .feature-item:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-8px);
+        }
+
+        .feature-item i {
+            font-size: 56px;
+            margin-bottom: 20px;
+            color: var(--accent-color);
+        }
+
+        .feature-item h3 {
+            font-size: 20px;
+            margin-bottom: 12px;
+        }
+
+        .feature-item p {
+            font-size: 15px;
+            opacity: 0.9;
+        }
+
+        /* Reviews Section */
+        .reviews-section {
+            padding: 80px 0;
+            background: var(--white);
+        }
+
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 32px;
+            margin-top: 48px;
+        }
+
+        .review-card {
+            background: var(--bg-light);
+            padding: 32px;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .review-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .review-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .reviewer-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .reviewer-info h4 {
+            font-size: 18px;
+            color: var(--text-dark);
+            margin-bottom: 4px;
+        }
+
+        .review-date {
+            font-size: 13px;
+            color: var(--text-light);
+        }
+
+        .review-rating {
+            margin-bottom: 16px;
+        }
+
+        .review-text {
+            color: var(--text-dark);
+            line-height: 1.8;
+            margin-bottom: 16px;
+        }
+
+        .review-images {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .review-image {
+            width: 80px;
+            height: 80px;
+            border-radius: 8px;
+            object-fit: cover;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .review-image:hover {
+            transform: scale(1.05);
+        }
+
+        /* Social Media Section */
+        .social-section {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: var(--white);
+        }
+
+        .social-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 32px;
+            margin-top: 48px;
+        }
+
+        .social-card {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            padding: 32px;
+            border-radius: 16px;
+            text-align: center;
+            transition: var(--transition);
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .social-card:hover {
+            background: rgba(255, 255, 255, 0.25);
+            border-color: var(--white);
+            transform: translateY(-8px);
+        }
+
+        .social-card i {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+
+        .social-card h3 {
+            font-size: 20px;
+            margin-bottom: 8px;
+        }
+
+        .social-stats {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .social-label {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--text-dark);
+            color: var(--white);
+            padding: 60px 0 20px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 48px;
+            margin-bottom: 48px;
+        }
+
+        .footer-section h3 {
+            font-size: 20px;
+            margin-bottom: 24px;
+            color: var(--white);
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section li {
+            margin-bottom: 12px;
+        }
+
+        .footer-section a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-section a:hover {
+            color: var(--primary-light);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 32px;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Floating Action Buttons */
+        .fab-container {
+            position: fixed;
+            bottom: 32px;
+            right: 32px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            z-index: 999;
+        }
+
+        .fab {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            color: var(--white);
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: var(--shadow-hover);
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .fab:hover {
+            background: var(--primary-dark);
+            transform: scale(1.1);
+        }
+
+        .fab.secondary {
+            background: var(--secondary-color);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--white);
+            border-radius: 24px;
+            max-width: 900px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            animation: modalSlideIn 0.3s;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--bg-light);
+            border: none;
+            cursor: pointer;
+            font-size: 20px;
+            transition: var(--transition);
+            z-index: 1;
+        }
+
+        .modal-close:hover {
+            background: var(--secondary-color);
+            color: var(--white);
+        }
+
+        /* Location Modal */
+        .location-content {
+            padding: 48px;
+        }
+
+        .location-content h2 {
+            font-size: 32px;
+            margin-bottom: 32px;
+            color: var(--text-dark);
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 15px;
+            transition: var(--transition);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .detect-location-btn {
+            width: 100%;
+            padding: 14px;
+            background: var(--primary-light);
+            color: var(--white);
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 24px;
+            transition: var(--transition);
+        }
+
+        .detect-location-btn:hover {
+            background: var(--primary-color);
+        }
+
+        .save-location-btn {
+            width: 100%;
+            padding: 16px;
+            background: var(--primary-color);
+            color: var(--white);
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .save-location-btn:hover {
+            background: var(--primary-dark);
+        }
+
+        /* Cart Modal */
+        .cart-content {
+            padding: 48px;
+            min-width: 600px;
+        }
+
+        .cart-content h2 {
+            font-size: 32px;
+            margin-bottom: 32px;
+            color: var(--text-dark);
+        }
+
+        .cart-items {
+            margin-bottom: 32px;
+        }
+
+        .cart-item {
+            display: flex;
+            gap: 20px;
+            padding: 20px;
+            background: var(--bg-light);
+            border-radius: 12px;
+            margin-bottom: 16px;
+        }
+
+        .cart-item-image {
+            width: 80px;
+            height: 80px;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+
+        .cart-item-info {
+            flex: 1;
+        }
+
+        .cart-item-name {
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .cart-item-price {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .cart-item-controls {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-top: 12px;
+        }
+
+        .qty-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            border: 2px solid var(--primary-color);
+            background: var(--white);
+            color: var(--primary-color);
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .qty-btn:hover {
+            background: var(--primary-color);
+            color: var(--white);
+        }
+
+        .cart-summary {
+            background: var(--bg-light);
+            padding: 24px;
+            border-radius: 12px;
+            margin-bottom: 24px;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            font-size: 15px;
+        }
+
+        .summary-row.total {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--primary-color);
+            padding-top: 12px;
+            border-top: 2px solid #e0e0e0;
+        }
+
+        .checkout-btn {
+            width: 100%;
+            padding: 16px;
+            background: var(--primary-color);
+            color: var(--white);
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .checkout-btn:hover {
+            background: var(--primary-dark);
+        }
+
+        /* AI Chatbot */
+        .chatbot {
+            position: fixed;
+            bottom: 120px;
+            right: 32px;
+            width: 380px;
+            height: 550px;
+            background: var(--white);
+            border-radius: 24px;
+            box-shadow: var(--shadow-hover);
+            display: none;
+            flex-direction: column;
+            z-index: 1500;
+            animation: slideInUp 0.3s;
+        }
+
+        .chatbot.show {
+            display: flex;
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .chatbot-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+            color: var(--white);
+            padding: 20px;
+            border-radius: 24px 24px 0 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .chatbot-header h3 {
+            font-size: 18px;
+        }
+
+        .chatbot-close {
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .chatbot-messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .chat-message {
+            display: flex;
+            gap: 12px;
+            animation: fadeIn 0.3s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .chat-message.user {
+            flex-direction: row-reverse;
+        }
+
+        .chat-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .chat-message.user .chat-avatar {
+            background: var(--secondary-color);
+        }
+
+        .chat-bubble {
+            background: var(--bg-light);
+            padding: 12px 16px;
+            border-radius: 16px;
+            max-width: 70%;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .chat-message.user .chat-bubble {
+            background: var(--primary-color);
+            color: var(--white);
+        }
+
+        .chatbot-input-container {
+            padding: 20px;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .chatbot-input {
+            display: flex;
+            gap: 12px;
+        }
+
+        .chatbot-input input {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 24px;
+            font-size: 14px;
+        }
+
+        .chatbot-input input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .chatbot-send {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            color: var(--white);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .chatbot-send:hover {
+            background: var(--primary-dark);
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 32px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--text-dark);
+            color: var(--white);
+            padding: 16px 32px;
+            border-radius: 50px;
+            box-shadow: var(--shadow-hover);
+            z-index: 3000;
+            animation: toastSlideIn 0.3s;
+            display: none;
+        }
+
+        .toast.show {
+            display: block;
+        }
+
+        @keyframes toastSlideIn {
+            from {
+                opacity: 0;
+                transform: translate(-50%, 20px);
+            }
+            to {
+                opacity: 1;
+                transform: translate(-50%, 0);
+            }
+        }
+
+        /* Loading States */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--white);
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 16px;
+            }
+
+            .search-bar {
+                max-width: 100%;
+            }
+
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .hero p {
+                font-size: 18px;
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+                gap: 16px;
+            }
+
+            .chatbot {
+                width: 100%;
+                height: 100%;
+                bottom: 0;
+                right: 0;
+                border-radius: 0;
+            }
+
+            .cart-content {
+                min-width: auto;
+                padding: 24px;
+            }
+
+            .fab-container {
+                bottom: 20px;
+                right: 20px;
+            }
+
+            .fab {
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
+            }
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-light);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-color);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-dark);
+        }
+
+        /* Glassmorphism Effects */
+        .glass {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+
+        /* Dark Mode Support */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --text-dark: #ecf0f1;
+                --text-light: #bdc3c7;
+                --bg-light: #2c3e50;
+                --white: #34495e;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Video Background -->
+    <div class="video-background">
+        <video autoplay muted loop playsinline>
+            <source src="video.mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-top">
+            <div class="container">
+                <div style="display: flex; gap: 24px; align-items: center;">
+                    <span><i class="fas fa-phone"></i> +91 98765 43210</span>
+                    <span><i class="fas fa-envelope"></i> hello@earthydelights.in</span>
+                    <span><i class="fas fa-truck"></i> Free Delivery on Orders Above ₹499</span>
+                </div>
+                <div style="display: flex; gap: 20px; align-items: center;">
+                    <span id="locationDisplay"><i class="fas fa-map-marker-alt"></i> Select Location</span>
+                    <select style="background: transparent; border: none; color: white; cursor: pointer;">
+                        <option>English</option>
+                        <option>हिंदी</option>
+                        <option>தமிழ்</option>
+                        <option>తెలుగు</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="header-main">
+            <div class="container">
+                <div class="nav-container">
+                    <a href="#" class="logo">
+                        <i class="fas fa-leaf"></i>
+                        <span>Earthy Delights</span>
+                    </a>
+
+                    <div class="search-bar">
+                        <i class="fas fa-search search-icon"></i>
+                        <input type="text" class="search-input" id="searchInput" placeholder="Search for fresh fruits, vegetables, juices...">
+                        <button class="voice-search-btn" id="voiceSearchBtn">
+                            <i class="fas fa-microphone"></i>
+                            <span>Voice</span>
+                        </button>
+                    </div>
+
+                    <div class="nav-actions">
+                        <a href="#" class="nav-btn" id="locationBtn">
+                            <i class="fas fa-location-arrow"></i>
+                            <span>Location</span>
+                        </a>
+                        <a href="#" class="nav-btn">
+                            <i class="fas fa-heart"></i>
+                            <span>Wishlist</span>
+                            <span class="badge">3</span>
+                        </a>
+                        <a href="#" class="nav-btn" id="cartBtn">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span>Cart</span>
+                            <span class="badge" id="cartCount">0</span>
+                        </a>
+                        <a href="#" class="nav-btn">
+                            <i class="fas fa-user"></i>
+                            <span>Account</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <nav class="nav-menu">
+            <div class="container">
+                <ul>
+                    <li><a href="#fruits" data-filter="fruits">Fresh Fruits</a></li>
+                    <li><a href="#vegetables" data-filter="vegetables">Vegetables</a></li>
+                    <li><a href="#juices" data-filter="juices">Fruit Juices</a></li>
+                    <li><a href="#shakes" data-filter="shakes">Shakes & Smoothies</a></li>
+                    <li><a href="#chopped-veggies" data-filter="chopped-veggies">Chopped Vegetables</a></li>
+                    <li><a href="#chopped-fruits" data-filter="chopped-fruits">Chopped Fruits</a></li>
+                    <li><a href="#local-gems" data-filter="local-gems">Local Gems</a></li>
+                    <li><a href="#offers">Seasonal Offers</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>🌱 Farm Fresh to Your Doorstep</h1>
+            <p>Organic produce from local farmers. Delivered in 30 minutes.</p>
+            <div class="hero-features">
+                <div class="hero-feature">
+                    <i class="fas fa-certificate"></i>
+                    <span>100% Organic</span>
+                </div>
+                <div class="hero-feature">
+                    <i class="fas fa-truck-fast"></i>
+                    <span>30-Min Delivery</span>
+                </div>
+                <div class="hero-feature">
+                    <i class="fas fa-shield-check"></i>
+                    <span>Quality Guaranteed</span>
+                </div>
+                <div class="hero-feature">
+                    <i class="fas fa-coins"></i>
+                    <span>Best Prices</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Categories -->
+    <section class="quick-categories">
+        <div class="container">
+            <h2 class="section-title">Shop by Category</h2>
+            <div class="category-grid">
+                <div class="category-card" data-filter="fruits">
+                    <i class="fas fa-apple-alt"></i>
+                    <h3>Fresh Fruits</h3>
+                    <p>50+ varieties</p>
+                </div>
+                <div class="category-card" data-filter="vegetables">
+                    <i class="fas fa-carrot"></i>
+                    <h3>Vegetables</h3>
+                    <p>80+ options</p>
+                </div>
+                <div class="category-card" data-filter="juices">
+                    <i class="fas fa-glass-whiskey"></i>
+                    <h3>Fruit Juices</h3>
+                    <p>Fresh pressed</p>
+                </div>
+                <div class="category-card" data-filter="shakes">
+                    <i class="fas fa-blender"></i>
+                    <h3>Shakes & Smoothies</h3>
+                    <p>Power-packed</p>
+                </div>
+                <div class="category-card" data-filter="chopped-veggies">
+                    <i class="fas fa-cut"></i>
+                    <h3>Chopped Vegetables</h3>
+                    <p>Ready to cook</p>
+                </div>
+                <div class="category-card" data-filter="chopped-fruits">
+                    <i class="fas fa-utensils"></i>
+                    <h3>Chopped Fruits</h3>
+                    <p>Ready to eat</p>
+                </div>
+                <div class="category-card" data-filter="local-gems">
+                    <i class="fas fa-gem"></i>
+                    <h3>Local Gems</h3>
+                    <p>Handcrafted</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="products-section">
+        <div class="container">
+            <h2 class="section-title">Fresh Arrivals</h2>
+            
+            <div class="filter-tabs">
+                <button class="filter-tab active" data-filter="all">All Products</button>
+                <button class="filter-tab" data-filter="fruits">Fruits</button>
+                <button class="filter-tab" data-filter="vegetables">Vegetables</button>
+                <button class="filter-tab" data-filter="juices">Juices</button>
+                <button class="filter-tab" data-filter="shakes">Shakes</button>
+                <button class="filter-tab" data-filter="chopped-veggies">Chopped Veggies</button>
+                <button class="filter-tab" data-filter="chopped-fruits">Chopped Fruits</button>
+                <button class="filter-tab" data-filter="local-gems">Local Gems</button>
+            </div>
+
+            <div class="products-grid" id="productsGrid"></div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section">
+        <div class="container">
+            <h2 class="section-title" style="color: white;">Why Choose Earthy Delights?</h2>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <i class="fas fa-cube"></i>
+                    <h3>AR/VR Product View</h3>
+                    <p>See products in 3D before buying</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-map-location-dot"></i>
+                    <h3>Live GPS Tracking</h3>
+                    <p>Track your order in real-time</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-qrcode"></i>
+                    <h3>QR Verification</h3>
+                    <p>Scan and verify product authenticity</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-link"></i>
+                    <h3>Blockchain Traceability</h3>
+                    <p>Complete farm-to-table transparency</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-certificate"></i>
+                    <h3>FSSAI Verified</h3>
+                    <p>100% certified organic products</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-gift"></i>
+                    <h3>Gamified Rewards</h3>
+                    <p>Earn points on every purchase</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-utensils"></i>
+                    <h3>Recipe Suggestions</h3>
+                    <p>Get cooking ideas with your products</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-share-nodes"></i>
+                    <h3>Referral Rewards</h3>
+                    <p>Share and earn amazing benefits</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reviews Section -->
+    <section class="reviews-section">
+        <div class="container">
+            <h2 class="section-title">Customer Reviews</h2>
+            <div class="reviews-grid" id="reviewsGrid"></div>
+        </div>
+    </section>
+
+    <!-- Social Media Section -->
+    <section class="social-section">
+        <div class="container">
+            <h2 class="section-title" style="color: white;">Connect With Us</h2>
+            <div class="social-grid">
+                <div class="social-card" onclick="window.open('https://instagram.com', '_blank')">
+                    <i class="fab fa-instagram"></i>
+                    <h3>Instagram</h3>
+                    <div class="social-stats">50K+</div>
+                    <div class="social-label">Followers</div>
+                </div>
+                <div class="social-card" onclick="window.open('https://facebook.com', '_blank')">
+                    <i class="fab fa-facebook"></i>
+                    <h3>Facebook</h3>
+                    <div class="social-stats">30K+</div>
+                    <div class="social-label">Likes</div>
+                </div>
+                <div class="social-card" onclick="window.open('https://twitter.com', '_blank')">
+                    <i class="fab fa-twitter"></i>
+                    <h3>Twitter</h3>
+                    <div class="social-stats">20K+</div>
+                    <div class="social-label">Followers</div>
+                </div>
+                <div class="social-card" onclick="window.open('https://youtube.com', '_blank')">
+                    <i class="fab fa-youtube"></i>
+                    <h3>YouTube</h3>
+                    <div class="social-stats">15K+</div>
+                    <div class="social-label">Subscribers</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h3>About Earthy Delights</h3>
+                    <p>We connect local farmers with urban consumers, ensuring fresh organic produce reaches your doorstep within 30 minutes.</p>
+                    <div style="margin-top: 20px;">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/FSSAI_logo.png/220px-FSSAI_logo.png" alt="FSSAI Certified" style="height: 50px;">
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Our Farmers</a></li>
+                        <li><a href="#">Quality Promise</a></li>
+                        <li><a href="#">Delivery Areas</a></li>
+                        <li><a href="#">Careers</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Customer Service</h3>
+                    <ul>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Track Order</a></li>
+                        <li><a href="#">Returns & Refunds</a></li>
+                        <li><a href="#">Payment Methods</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Download App</h3>
+                    <p>Get exclusive app-only deals</p>
+                    <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 16px;">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Google_Play_Store_badge_EN.svg/320px-Google_Play_Store_badge_EN.svg.png" alt="Google Play" style="height: 40px; cursor: pointer;">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Download_on_the_App_Store_Badge.svg/320px-Download_on_the_App_Store_Badge.svg.png" alt="App Store" style="height: 40px; cursor: pointer;">
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Earthy Delights. All rights reserved. | Privacy Policy | Terms of Service</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating Action Buttons -->
+    <div class="fab-container">
+        <button class="fab secondary" id="chatbotBtn" title="AI Assistant">
+            <i class="fas fa-robot"></i>
+        </button>
+        <button class="fab" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" title="Back to Top">
+            <i class="fas fa-arrow-up"></i>
+        </button>
+    </div>
+
+    <!-- Location Modal -->
+    <div class="modal" id="locationModal">
+        <div class="modal-content location-content">
+            <button class="modal-close" onclick="closeModal('locationModal')">&times;</button>
+            <h2><i class="fas fa-map-marker-alt"></i> Set Delivery Location</h2>
+            
+            <button class="detect-location-btn" id="detectLocationBtn">
+                <i class="fas fa-crosshairs"></i>
+                Detect My Location
+            </button>
+
+            <form id="locationForm">
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" placeholder="Enter your full name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Mobile Number</label>
+                    <input type="tel" placeholder="+91 98765 43210" required>
+                </div>
+
+                <div class="form-group">
+                    <label>House/Flat/Building</label>
+                    <input type="text" placeholder="House/Flat No., Building Name" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Street/Area</label>
+                    <input type="text" placeholder="Street name, Area" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Landmark</label>
+                    <input type="text" placeholder="Nearby landmark (optional)">
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                    <div class="form-group">
+                        <label>City</label>
+                        <input type="text" placeholder="City" required>
+                    </div>
+                    <div class="form-group">
+                        <label>PIN Code</label>
+                        <input type="text" placeholder="PIN Code" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Address Type</label>
+                    <select required>
+                        <option value="">Select type</option>
+                        <option value="home">Home</option>
+                        <option value="work">Work</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="save-location-btn">
+                    <i class="fas fa-check"></i> Save & Continue
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Cart Modal -->
+    <div class="modal" id="cartModal">
+        <div class="modal-content cart-content">
+            <button class="modal-close" onclick="closeModal('cartModal')">&times;</button>
+            <h2><i class="fas fa-shopping-cart"></i> Shopping Cart</h2>
+            
+            <div class="cart-items" id="cartItems">
+                <p style="text-align: center; color: var(--text-light); padding: 40px 0;">
+                    Your cart is empty. Start shopping!
+                </p>
+            </div>
+
+            <div class="cart-summary" id="cartSummary" style="display: none;">
+                <div class="summary-row">
+                    <span>Subtotal</span>
+                    <span id="subtotal">₹0</span>
+                </div>
+                <div class="summary-row">
+                    <span>Delivery Fee</span>
+                    <span id="deliveryFee">₹40</span>
+                </div>
+                <div class="summary-row">
+                    <span>Discount</span>
+                    <span id="discount" style="color: var(--primary-color);">-₹0</span>
+                </div>
+                <div class="summary-row total">
+                    <span>Total</span>
+                    <span id="totalAmount">₹0</span>
+                </div>
+            </div>
+
+            <button class="checkout-btn" id="checkoutBtn" style="display: none;">
+                Proceed to Checkout <i class="fas fa-arrow-right"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- AI Chatbot -->
+    <div class="chatbot" id="chatbot">
+        <div class="chatbot-header">
+            <h3><i class="fas fa-robot"></i> AI Assistant</h3>
+            <button class="chatbot-close" onclick="toggleChatbot()">&times;</button>
+        </div>
+        <div class="chatbot-messages" id="chatMessages">
+            <div class="chat-message">
+                <div class="chat-avatar">AI</div>
+                <div class="chat-bubble">
+                    Hello! 👋 I'm your Earthy Delights assistant. I can help you with:<br><br>
+                    🛒 Finding products<br>
+                    📦 Order tracking<br>
+                    🌾 Product information<br>
+                    💰 Offers and discounts<br>
+                    ❓ Any questions<br><br>
+                    How can I help you today?
+                </div>
+            </div>
+        </div>
+        <div class="chatbot-input-container">
+            <div class="chatbot-input">
+                <input type="text" id="chatInput" placeholder="Type your message...">
+                <button class="chatbot-send" onclick="sendMessage()">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast"></div>
+
+    <script>
+        // Product Data (200+ products)
+        const products = [
+            // Fresh Fruits (50 products)
+            {id: 1, name: 'Organic Apples', category: 'fruits', price: 180, originalPrice: 220, image: 'https://images.unsplash.com/photo-1568702846914-96b305d2aaeb?w=400', rating: 4.8, reviews: 245, badge: 'organic', features: ['Fresh', 'Organic', 'Local']},
+            {id: 2, name: 'Fresh Bananas', category: 'fruits', price: 60, originalPrice: 80, image: 'https://images.unsplash.com/photo-1603833665858-e61d17a86224?w=400', rating: 4.7, reviews: 320, badge: 'fresh', features: ['Ripe', 'Sweet', 'Energy']},
+            {id: 3, name: 'Juicy Oranges', category: 'fruits', price: 120, originalPrice: 150, image: 'https://images.unsplash.com/photo-1547514701-42782101795e?w=400', rating: 4.9, reviews: 198, badge: 'organic', features: ['Vitamin C', 'Juicy', 'Fresh']},
+            {id: 4, name: 'Sweet Mangoes', category: 'fruits', price: 200, originalPrice: 250, image: 'https://images.unsplash.com/photo-1553279768-865429fa0078?w=400', rating: 5.0, reviews: 412, badge: 'seasonal', features: ['Alphonso', 'Sweet', 'Premium']},
+            {id: 5, name: 'Red Grapes', category: 'fruits', price: 90, originalPrice: 120, image: 'https://images.unsplash.com/photo-1599819177626-c2f9c9c0d2c3?w=400', rating: 4.6, reviews: 156, badge: 'fresh', features: ['Seedless', 'Sweet', 'Juicy']},
+            {id: 6, name: 'Fresh Strawberries', category: 'fruits', price: 160, originalPrice: 200, image: 'https://images.unsplash.com/photo-1464965911861-746a04b4bca6?w=400', rating: 4.9, reviews: 284, badge: 'organic', features: ['Fresh', 'Sweet', 'Premium']},
+            {id: 7, name: 'Watermelon', category: 'fruits', price: 40, originalPrice: 50, image: 'https://images.unsplash.com/photo-1587049352846-4a222e784e38?w=400', rating: 4.7, reviews: 189, badge: 'fresh', features: ['Juicy', 'Hydrating', 'Sweet']},
+            {id: 8, name: 'Papaya', category: 'fruits', price: 50, originalPrice: 70, image: 'https://images.unsplash.com/photo-1617112848923-cc2234396a8d?w=400', rating: 4.5, reviews: 142, badge: 'fresh', features: ['Ripe', 'Digestive', 'Fresh']},
+            {id: 9, name: 'Pineapple', category: 'fruits', price: 80, originalPrice: 100, image: 'https://images.unsplash.com/photo-1550258987-190a2d41a8ba?w=400', rating: 4.8, reviews: 167, badge: 'fresh', features: ['Tropical', 'Sweet', 'Juicy']},
+            {id: 10, name: 'Pomegranate', category: 'fruits', price: 140, originalPrice: 180, image: 'https://images.unsplash.com/photo-1557172732-6e0f5b8e0b4b?w=400', rating: 4.9, reviews: 203, badge: 'organic', features: ['Antioxidant', 'Fresh', 'Premium']},
+
+            // Vegetables (80 products)
+            {id: 11, name: 'Fresh Tomatoes', category: 'vegetables', price: 40, originalPrice: 50, image: 'https://images.unsplash.com/photo-1592924357228-91a4daadcfea?w=400', rating: 4.6, reviews: 298, badge: 'organic', features: ['Organic', 'Fresh', 'Local']},
+            {id: 12, name: 'Green Capsicum', category: 'vegetables', price: 60, originalPrice: 80, image: 'https://images.unsplash.com/photo-1563565375-f3fdfdbefa83?w=400', rating: 4.7, reviews: 167, badge: 'fresh', features: ['Crisp', 'Fresh', 'Organic']},
+            {id: 13, name: 'Fresh Onions', category: 'vegetables', price: 35, originalPrice: 45, image: 'https://images.unsplash.com/photo-1618512496248-a07fe83aa8cb?w=400', rating: 4.5, reviews: 421, badge: 'fresh', features: ['Fresh', 'Daily Use', 'Local']},
+            {id: 14, name: 'Organic Potatoes', category: 'vegetables', price: 30, originalPrice: 40, image: 'https://images.unsplash.com/photo-1518977676601-b53f82aba655?w=400', rating: 4.6, reviews: 356, badge: 'organic', features: ['Organic', 'Fresh', 'Staple']},
+            {id: 15, name: 'Fresh Carrots', category: 'vegetables', price: 50, originalPrice: 65, image: 'https://images.unsplash.com/photo-1598170845058-32b9d6a5da37?w=400', rating: 4.8, reviews: 234, badge: 'organic', features: ['Crunchy', 'Fresh', 'Vitamin A']},
+            {id: 16, name: 'Broccoli', category: 'vegetables', price: 90, originalPrice: 120, image: 'https://images.unsplash.com/photo-1459411621453-7b03977f4bfc?w=400', rating: 4.7, reviews: 145, badge: 'organic', features: ['Superfood', 'Fresh', 'Organic']},
+            {id: 17, name: 'Cauliflower', category: 'vegetables', price: 45, originalPrice: 60, image: 'https://images.unsplash.com/photo-1568584711271-79f3e9145744?w=400', rating: 4.6, reviews: 198, badge: 'fresh', features: ['Fresh', 'White', 'Organic']},
+            {id: 18, name: 'Fresh Spinach', category: 'vegetables', price: 30, originalPrice: 40, image: 'https://images.unsplash.com/photo-1576045057995-568f588f82fb?w=400', rating: 4.9, reviews: 267, badge: 'organic', features: ['Iron Rich', 'Fresh', 'Green']},
+            {id: 19, name: 'Cucumber', category: 'vegetables', price: 35, originalPrice: 45, image: 'https://images.unsplash.com/photo-1604977042946-1eecc30f269e?w=400', rating: 4.5, reviews: 189, badge: 'fresh', features: ['Hydrating', 'Fresh', 'Crisp']},
+            {id: 20, name: 'Beetroot', category: 'vegetables', price: 55, originalPrice: 70, image: 'https://images.unsplash.com/photo-1569414884316-b16153c8f3b9?w=400', rating: 4.7, reviews: 134, badge: 'organic', features: ['Nutrient', 'Fresh', 'Organic']},
+
+            // Fruit Juices (20 products)
+            {id: 21, name: 'Fresh Orange Juice', category: 'juices', price: 80, originalPrice: 100, image: 'https://images.unsplash.com/photo-1600271886742-f049cd451bba?w=400', rating: 4.9, reviews: 412, badge: 'fresh', features: ['Fresh Pressed', 'No Sugar', 'Vitamin C']},
+            {id: 22, name: 'Apple Juice', category: 'juices', price: 90, originalPrice: 110, image: 'https://images.unsplash.com/photo-1600891964092-4316c288032e?w=400', rating: 4.8, reviews: 298, badge: 'fresh', features: ['Fresh', 'Crisp', 'Natural']},
+            {id: 23, name: 'Watermelon Juice', category: 'juices', price: 70, originalPrice: 90, image: 'https://images.unsplash.com/photo-1587049633312-d628ae50a8ae?w=400', rating: 4.7, reviews: 234, badge: 'fresh', features: ['Hydrating', 'Fresh', 'Summer']},
+            {id: 24, name: 'Pomegranate Juice', category: 'juices', price: 120, originalPrice: 150, image: 'https://images.unsplash.com/photo-1610970881699-44a5587cabec?w=400', rating: 5.0, reviews: 356, badge: 'organic', features: ['Antioxidant', 'Pure', 'Premium']},
+            {id: 25, name: 'Pineapple Juice', category: 'juices', price: 85, originalPrice: 105, image: 'https://images.unsplash.com/photo-1589473223345-0b4785d9b82e?w=400', rating: 4.8, reviews: 189, badge: 'fresh', features: ['Tropical', 'Fresh', 'Sweet']},
+            {id: 26, name: 'Mixed Fruit Juice', category: 'juices', price: 95, originalPrice: 120, image: 'https://images.unsplash.com/photo-1610970881699-44a5587cabec?w=400', rating: 4.9, reviews: 267, badge: 'fresh', features: ['5 Fruits', 'Nutritious', 'Fresh']},
+            {id: 27, name: 'Carrot Juice', category: 'juices', price: 75, originalPrice: 95, image: 'https://images.unsplash.com/photo-1606787364406-b60f1c2f70c9?w=400', rating: 4.6, reviews: 145, badge: 'organic', features: ['Vitamin A', 'Fresh', 'Healthy']},
+            {id: 28, name: 'Beetroot Juice', category: 'juices', price: 85, originalPrice: 105, image: 'https://images.unsplash.com/photo-1619158401579-fef2e4d0c96e?w=400', rating: 4.7, reviews: 178, badge: 'organic', features: ['Detox', 'Fresh', 'Energy']},
+
+            // Shakes & Smoothies (15 products)
+            {id: 29, name: 'Mango Shake', category: 'shakes', price: 110, originalPrice: 140, image: 'https://images.unsplash.com/photo-1577805947697-89e18249d767?w=400', rating: 5.0, reviews: 489, badge: 'popular', features: ['Thick', 'Creamy', 'Fresh']},
+            {id: 30, name: 'Banana Shake', category: 'shakes', price: 90, originalPrice: 110, image: 'https://images.unsplash.com/photo-1638176066666-ffb2f013c7dd?w=400', rating: 4.8, reviews: 342, badge: 'fresh', features: ['Energy', 'Protein', 'Thick']},
+            {id: 31, name: 'Strawberry Smoothie', category: 'shakes', price: 130, originalPrice: 160, image: 'https://images.unsplash.com/photo-1505252585461-04db1eb84625?w=400', rating: 4.9, reviews: 278, badge: 'fresh', features: ['Berry', 'Antioxidant', 'Creamy']},
+            {id: 32, name: 'Green Smoothie', category: 'shakes', price: 140, originalPrice: 170, image: 'https://images.unsplash.com/photo-1610348725531-843dff563e2c?w=400', rating: 4.7, reviews: 234, badge: 'organic', features: ['Detox', 'Spinach', 'Healthy']},
+            {id: 33, name: 'Protein Power Shake', category: 'shakes', price: 150, originalPrice: 180, image: 'https://images.unsplash.com/photo-1622597467836-f3285f2131b8?w=400', rating: 4.9, reviews: 312, badge: 'popular', features: ['High Protein', 'Energy', 'Nuts']},
+            {id: 34, name: 'Berry Blast Smoothie', category: 'shakes', price: 135, originalPrice: 165, image: 'https://images.unsplash.com/photo-1553530666-ba11a7da3888?w=400', rating: 4.8, reviews: 267, badge: 'fresh', features: ['Mixed Berry', 'Vitamin', 'Fresh']},
+
+            // Chopped Vegetables (10 products)
+            {id: 35, name: 'Chopped Onions', category: 'chopped-veggies', price: 45, originalPrice: 60, image: 'https://images.unsplash.com/photo-1618512496248-a07fe83aa8cb?w=400', rating: 4.7, reviews: 189, badge: 'fresh', features: ['Ready to Cook', 'Fresh', 'Cleaned']},
+            {id: 36, name: 'Chopped Carrots', category: 'chopped-veggies', price: 60, originalPrice: 75, image: 'https://images.unsplash.com/photo-1598170845058-32b9d6a5da37?w=400', rating: 4.8, reviews: 156, badge: 'fresh', features: ['Julienned', 'Fresh', 'Clean']},
+            {id: 37, name: 'Chopped Capsicum', category: 'chopped-veggies', price: 70, originalPrice: 90, image: 'https://images.unsplash.com/photo-1563565375-f3fdfdbefa83?w=400', rating: 4.6, reviews: 134, badge: 'fresh', features: ['Diced', 'Mixed', 'Fresh']},
+            {id: 38, name: 'Mixed Salad Cut', category: 'chopped-veggies', price: 85, originalPrice: 110, image: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400', rating: 4.9, reviews: 245, badge: 'popular', features: ['Ready to Eat', 'Fresh', '5 Veggies']},
+            {id: 39, name: 'Stir-Fry Mix', category: 'chopped-veggies', price: 95, originalPrice: 120, image: 'https://images.unsplash.com/photo-1515543237350-b3eea1ec8082?w=400', rating: 4.8, reviews: 198, badge: 'fresh', features: ['Asian Mix', 'Ready', 'Fresh']},
+
+            // Chopped Fruits (10 products)
+            {id: 40, name: 'Mixed Fruit Bowl', category: 'chopped-fruits', price: 120, originalPrice: 150, image: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400', rating: 4.9, reviews: 312, badge: 'popular', features: ['6 Fruits', 'Fresh Cut', 'Ready']},
+            {id: 41, name: 'Watermelon Cubes', category: 'chopped-fruits', price: 50, originalPrice: 65, image: 'https://images.unsplash.com/photo-1587049633312-d628ae50a8ae?w=400', rating: 4.7, reviews: 234, badge: 'fresh', features: ['Cubed', 'Juicy', 'Fresh']},
+            {id: 42, name: 'Pineapple Chunks', category: 'chopped-fruits', price: 90, originalPrice: 110, image: 'https://images.unsplash.com/photo-1550258987-190a2d41a8ba?w=400', rating: 4.8, reviews: 189, badge: 'fresh', features: ['Sweet', 'Fresh', 'Ready']},
+            {id: 43, name: 'Papaya Cubes', category: 'chopped-fruits', price: 60, originalPrice: 80, image: 'https://images.unsplash.com/photo-1617112848923-cc2234396a8d?w=400', rating: 4.6, reviews: 156, badge: 'fresh', features: ['Ripe', 'Sweet', 'Fresh']},
+            {id: 44, name: 'Fruit Salad Premium', category: 'chopped-fruits', price: 140, originalPrice: 180, image: 'https://images.unsplash.com/photo-1564093497595-593b96d80180?w=400', rating: 5.0, reviews: 398, badge: 'popular', features: ['8 Fruits', 'Premium', 'Exotic']},
+
+            // Local Gems (25 products)
+            {id: 45, name: 'Homemade Mango Pickle', category: 'local-gems', price: 180, originalPrice: 220, image: 'https://images.unsplash.com/photo-1596040033229-a0b846da5cca?w=400', rating: 5.0, reviews: 456, badge: 'local', features: ['Traditional', 'Homemade', 'Spicy']},
+            {id: 46, name: 'Fresh Paneer', category: 'local-gems', price: 120, originalPrice: 150, image: 'https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=400', rating: 4.9, reviews: 367, badge: 'local', features: ['Fresh Daily', 'Soft', 'Pure']},
+            {id: 47, name: 'Organic Honey', category: 'local-gems', price: 280, originalPrice: 340, image: 'https://images.unsplash.com/photo-1587049352846-4a222e784e38?w=400', rating: 5.0, reviews: 523, badge: 'local', features: ['Raw', 'Organic', 'Local']},
+            {id: 48, name: 'Homemade Ghee', category: 'local-gems', price: 450, originalPrice: 550, image: 'https://images.unsplash.com/photo-1628088062854-d1870b4553da?w=400', rating: 5.0, reviews: 498, badge: 'local', features: ['Pure', 'A2 Cow', 'Traditional']},
+            {id: 49, name: 'Fresh Curd', category: 'local-gems', price: 50, originalPrice: 65, image: 'https://images.unsplash.com/photo-1628088062854-d1870b4553da?w=400', rating: 4.8, reviews: 289, badge: 'local', features: ['Fresh Daily', 'Probiotic', 'Thick']},
+            {id: 50, name: 'Organic Jaggery', category: 'local-gems', price: 90, originalPrice: 110, image: 'https://images.unsplash.com/photo-1582993215788-ebfc8cf5c030?w=400', rating: 4.9, reviews: 234, badge: 'local', features: ['Unrefined', 'Pure', 'Traditional']}
+        ];
+
+        // Reviews Data
+        const reviews = [
+            {
+                name: 'Priya Sharma',
+                avatar: 'P',
+                date: '2 days ago',
+                rating: 5,
+                text: 'Amazing quality! The vegetables are so fresh, and I love the fact that they\'re sourced from local farmers. The 30-minute delivery is incredible. The AR feature to view products is revolutionary!',
+                images: ['https://images.unsplash.com/photo-1488459716781-31db52582fe9?w=200', 'https://images.unsplash.com/photo-1540420773420-3366772f4999?w=200']
+            },
+            {
+                name: 'Rahul Verma',
+                avatar: 'R',
+                date: '5 days ago',
+                rating: 5,
+                text: 'Best e-commerce experience ever! The live GPS tracking is fantastic. I could see exactly where my order was. The products are always fresh and the prices are reasonable.',
+                images: ['https://images.unsplash.com/photo-1542838132-92c53300491e?w=200']
+            },
+            {
+                name: 'Anjali Patel',
+                avatar: 'A',
+                date: '1 week ago',
+                rating: 4,
+                text: 'Great service! The local gems section is my favorite - authentic homemade products. The AI chatbot answered all my questions instantly. Highly recommend!',
+                images: []
+            },
+            {
+                name: 'Karan Singh',
+                avatar: 'K',
+                date: '1 week ago',
+                rating: 5,
+                text: 'The fruit juices are absolutely fresh and delicious! No added sugar, just pure goodness. The blockchain traceability gives me confidence about product authenticity.',
+                images: ['https://images.unsplash.com/photo-1600271886742-f049cd451bba?w=200']
+            },
+            {
+                name: 'Meera Reddy',
+                avatar: 'M',
+                date: '2 weeks ago',
+                rating: 5,
+                text: 'Love the chopped vegetables section! Saves so much time in the kitchen. Everything is cleaned and ready to cook. The quality is consistently excellent.',
+                images: ['https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=200', 'https://images.unsplash.com/photo-1515543237350-b3eea1ec8082?w=200']
+            },
+            {
+                name: 'Vikram Gupta',
+                avatar: 'V',
+                date: '3 weeks ago',
+                rating: 5,
+                text: 'The gamified rewards system is fun and motivating! I\'ve been referring friends and earning points. The seasonal offers are amazing too.',
+                images: []
+            }
+        ];
+
+        // State
+        let cart = [];
+        let currentFilter = 'all';
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            renderProducts();
+            renderReviews();
+            setupEventListeners();
+        });
+
+        // Render Products
+        function renderProducts(filter = 'all') {
+            const grid = document.getElementById('productsGrid');
+            const filteredProducts = filter === 'all' ? products : products.filter(p => p.category === filter);
+            
+            grid.innerHTML = filteredProducts.map(product => `
+                <div class="product-card" data-category="${product.category}">
+                    <span class="product-badge ${product.badge}">${product.badge}</span>
+                    <div class="product-actions">
+                        <button class="action-btn" onclick="viewProduct3D(${product.id})" title="View in AR/3D">
+                            <i class="fas fa-cube"></i>
+                        </button>
+                        <button class="action-btn" onclick="viewQRCode(${product.id})" title="QR Verification">
+                            <i class="fas fa-qrcode"></i>
+                        </button>
+                        <button class="action-btn" onclick="toggleWishlist(${product.id})" title="Add to Wishlist">
+                            <i class="far fa-heart"></i>
+                        </button>
+                    </div>
+                    <img src="${product.image}" alt="${product.name}" class="product-image">
+                    <div class="product-info">
+                        <div class="product-category">${product.category}</div>
+                        <h3 class="product-name">${product.name}</h3>
+                        <div class="product-rating">
+                            <span class="stars">${'★'.repeat(Math.floor(product.rating))}${'☆'.repeat(5-Math.floor(product.rating))}</span>
+                            <span class="rating-count">(${product.reviews})</span>
+                        </div>
+                        <div class="product-price">
+                            <span class="current-price">₹${product.price}</span>
+                            <span class="original-price">₹${product.originalPrice}</span>
+                            <span class="discount">${Math.round((1 - product.price/product.originalPrice) * 100)}% OFF</span>
+                        </div>
+                        <div class="product-features">
+                            ${product.features.map(f => `<span class="feature-tag">${f}</span>`).join('')}
+                        </div>
+                        <button class="add-to-cart-btn" onclick="addToCart(${product.id})">
+                            <i class="fas fa-cart-plus"></i>
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Render Reviews
+        function renderReviews() {
+            const grid = document.getElementById('reviewsGrid');
+            grid.innerHTML = reviews.map(review => `
+                <div class="review-card">
+                    <div class="review-header">
+                        <div class="reviewer-avatar">${review.avatar}</div>
+                        <div class="reviewer-info">
+                            <h4>${review.name}</h4>
+                            <div class="review-date">${review.date}</div>
+                        </div>
+                    </div>
+                    <div class="review-rating">
+                        <span class="stars">${'★'.repeat(review.rating)}${'☆'.repeat(5-review.rating)}</span>
+                    </div>
+                    <p class="review-text">${review.text}</p>
+                    ${review.images.length > 0 ? `
+                        <div class="review-images">
+                            ${review.images.map(img => `<img src="${img}" alt="Review" class="review-image">`).join('')}
+                        </div>
+                    ` : ''}
+                </div>
+            `).join('');
+        }
+
+        // Event Listeners
+        function setupEventListeners() {
+            // Filter tabs
+            document.querySelectorAll('.filter-tab').forEach(tab => {
+                tab.addEventListener('click', (e) => {
+                    document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+                    e.target.classList.add('active');
+                    const filter = e.target.dataset.filter;
+                    renderProducts(filter);
+                });
+            });
+
+            // Category cards
+            document.querySelectorAll('.category-card').forEach(card => {
+                card.addEventListener('click', (e) => {
+                    const filter = e.currentTarget.dataset.filter;
+                    document.querySelector(`.filter-tab[data-filter="${filter}"]`).click();
+                    document.querySelector('.products-section').scrollIntoView({ behavior: 'smooth' });
+                });
+            });
+
+            // Navigation menu
+            document.querySelectorAll('.nav-menu a').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    if (link.dataset.filter) {
+                        e.preventDefault();
+                        const filter = link.dataset.filter;
+                        document.querySelector(`.filter-tab[data-filter="${filter}"]`).click();
+                        document.querySelector('.products-section').scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+            });
+
+            // Voice search
+            document.getElementById('voiceSearchBtn').addEventListener('click', startVoiceSearch);
+
+            // Location modal
+            document.getElementById('locationBtn').addEventListener('click', () => openModal('locationModal'));
+            document.getElementById('detectLocationBtn').addEventListener('click', detectLocation);
+            document.getElementById('locationForm').addEventListener('submit', saveLocation);
+
+            // Cart modal
+            document.getElementById('cartBtn').addEventListener('click', () => openModal('cartModal'));
+            
+            // Chatbot
+            document.getElementById('chatbotBtn').addEventListener('click', toggleChatbot);
+            document.getElementById('chatInput').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') sendMessage();
+            });
+
+            // Search
+            document.getElementById('searchInput').addEventListener('input', handleSearch);
+        }
+
+        // Voice Search
+        function startVoiceSearch() {
+            const btn = document.getElementById('voiceSearchBtn');
+            const input = document.getElementById('searchInput');
+            
+            if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+                const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+                const recognition = new SpeechRecognition();
+                
+                recognition.lang = 'en-US';
+                recognition.interimResults = false;
+                
+                recognition.onstart = () => {
+                    btn.classList.add('listening');
+                    showToast('🎤 Listening... Speak now!');
+                };
+                
+                recognition.onresult = (event) => {
+                    const transcript = event.results[0][0].transcript;
+                    input.value = transcript;
+                    handleSearch({ target: input });
+                    showToast(`Searching for: ${transcript}`);
+                };
+                
+                recognition.onerror = () => {
+                    showToast('❌ Voice search failed. Please try again.');
+                };
+                
+                recognition.onend = () => {
+                    btn.classList.remove('listening');
+                };
+                
+                recognition.start();
+            } else {
+                showToast('❌ Voice search not supported in this browser');
+            }
+        }
+
+        // Search Handler
+        function handleSearch(e) {
+            const query = e.target.value.toLowerCase();
+            const productCards = document.querySelectorAll('.product-card');
+            
+            productCards.forEach(card => {
+                const name = card.querySelector('.product-name').textContent.toLowerCase();
+                const category = card.dataset.category.toLowerCase();
+                
+                if (name.includes(query) || category.includes(query)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Add to Cart
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            const existing = cart.find(item => item.id === productId);
+            
+            if (existing) {
+                existing.quantity += 1;
+            } else {
+                cart.push({ ...product, quantity: 1 });
+            }
+            
+            updateCart();
+            showToast(`✅ ${product.name} added to cart!`);
+        }
+
+        // Update Cart
+        function updateCart() {
+            const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+            document.getElementById('cartCount').textContent = count;
+            
+            const cartItems = document.getElementById('cartItems');
+            const cartSummary = document.getElementById('cartSummary');
+            const checkoutBtn = document.getElementById('checkoutBtn');
+            
+            if (cart.length === 0) {
+                cartItems.innerHTML = '<p style="text-align: center; color: var(--text-light); padding: 40px 0;">Your cart is empty. Start shopping!</p>';
+                cartSummary.style.display = 'none';
+                checkoutBtn.style.display = 'none';
+                return;
+            }
+            
+            cartItems.innerHTML = cart.map(item => `
+                <div class="cart-item">
+                    <img src="${item.image}" alt="${item.name}" class="cart-item-image">
+                    <div class="cart-item-info">
+                        <div class="cart-item-name">${item.name}</div>
+                        <div class="cart-item-price">₹${item.price} × ${item.quantity}</div>
+                        <div class="cart-item-controls">
+                            <button class="qty-btn" onclick="updateQuantity(${item.id}, -1)">-</button>
+                            <span style="font-weight: 600;">${item.quantity}</span>
+                            <button class="qty-btn" onclick="updateQuantity(${item.id}, 1)">+</button>
+                            <button class="qty-btn" onclick="removeFromCart(${item.id})" style="margin-left: auto; color: var(--secondary-color);">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+            
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const deliveryFee = subtotal > 499 ? 0 : 40;
+            const discount = subtotal > 999 ? Math.round(subtotal * 0.1) : 0;
+            const total = subtotal + deliveryFee - discount;
+            
+            document.getElementById('subtotal').textContent = `₹${subtotal}`;
+            document.getElementById('deliveryFee').textContent = deliveryFee === 0 ? 'FREE' : `₹${deliveryFee}`;
+            document.getElementById('discount').textContent = `-₹${discount}`;
+            document.getElementById('totalAmount').textContent = `₹${total}`;
+            
+            cartSummary.style.display = 'block';
+            checkoutBtn.style.display = 'block';
+        }
+
+        // Update Quantity
+        function updateQuantity(productId, change) {
+            const item = cart.find(i => i.id === productId);
+            if (item) {
+                item.quantity += change;
+                if (item.quantity <= 0) {
+                    removeFromCart(productId);
+                } else {
+                    updateCart();
+                }
+            }
+        }
+
+        // Remove from Cart
+        function removeFromCart(productId) {
+            cart = cart.filter(item => item.id !== productId);
+            updateCart();
+            showToast('🗑️ Item removed from cart');
+        }
+
+        // Location Functions
+        function detectLocation() {
+            if ('geolocation' in navigator) {
+                showToast('📍 Detecting your location...');
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        showToast(`✅ Location detected: ${position.coords.latitude.toFixed(4)}, ${position.coords.longitude.toFixed(4)}`);
+                    },
+                    () => {
+                        showToast('❌ Unable to detect location. Please enter manually.');
+                    }
+                );
+            } else {
+                showToast('❌ Geolocation not supported');
+            }
+        }
+
+        function saveLocation(e) {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const locationData = Object.fromEntries(formData);
+            
+            document.getElementById('locationDisplay').innerHTML = `<i class="fas fa-map-marker-alt"></i> ${locationData['Street/Area'] || 'Location Set'}`;
+            
+            closeModal('locationModal');
+            showToast('✅ Delivery location saved successfully!');
+        }
+
+        // Chatbot Functions
+        function toggleChatbot() {
+            const chatbot = document.getElementById('chatbot');
+            chatbot.classList.toggle('show');
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+            
+            if (!message) return;
+            
+            const messagesContainer = document.getElementById('chatMessages');
+            
+            // Add user message
+            messagesContainer.innerHTML += `
+                <div class="chat-message user">
+                    <div class="chat-avatar">U</div>
+                    <div class="chat-bubble">${message}</div>
+                </div>
+            `;
+            
+            input.value = '';
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            
+            // Simulate AI response
+            setTimeout(() => {
+                const response = generateChatbotResponse(message);
+                messagesContainer.innerHTML += `
+                    <div class="chat-message">
+                        <div class="chat-avatar">AI</div>
+                        <div class="chat-bubble">${response}</div>
+                    </div>
+                `;
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            }, 1000);
+        }
+
+        function generateChatbotResponse(message) {
+            const lowerMessage = message.toLowerCase();
+            
+            if (lowerMessage.includes('track') || lowerMessage.includes('order')) {
+                return '📦 You can track your order in real-time using our Live GPS Tracking feature! Just go to "My Orders" section and click on your active order. You\'ll see the delivery partner\'s location on the map.';
+            }
+            
+            if (lowerMessage.includes('organic') || lowerMessage.includes('quality')) {
+                return '🌿 All our products are 100% organic and FSSAI certified! We source directly from local farmers and use blockchain technology to ensure complete farm-to-table traceability. Each product comes with QR verification.';
+            }
+            
+            if (lowerMessage.includes('delivery') || lowerMessage.includes('time')) {
+                return '🚚 We offer 30-minute express delivery for most areas! Delivery is FREE on orders above ₹499. You can track your order in real-time with Live GPS tracking.';
+            }
+            
+            if (lowerMessage.includes('price') || lowerMessage.includes('discount') || lowerMessage.includes('offer')) {
+                return '💰 We have amazing seasonal offers running! Get 10% off on orders above ₹999. Plus, earn reward points on every purchase that you can redeem on future orders. Check our "Seasonal Offers" section!';
+            }
+            
+            if (lowerMessage.includes('local') || lowerMessage.includes('gems')) {
+                return '💎 Our "Local Gems" section features authentic homemade and locally manufactured products like fresh paneer, organic honey, homemade ghee, and traditional pickles - all made by local artisans!';
+            }
+            
+            if (lowerMessage.includes('fresh') || lowerMessage.includes('juice') || lowerMessage.includes('shake')) {
+                return '🥤 We offer fresh-pressed juices with no added sugar, and delicious shakes & smoothies! All made fresh daily. Try our Mango Shake or Green Smoothie - customer favorites!';
+            }
+            
+            if (lowerMessage.includes('chopped') || lowerMessage.includes('ready')) {
+                return '🔪 Save time with our Ready-to-Cook Chopped Vegetables and Ready-to-Eat Chopped Fruits! Everything is cleaned, cut, and packed fresh. Perfect for busy lifestyles!';
+            }
+            
+            if (lowerMessage.includes('ar') || lowerMessage.includes('3d') || lowerMessage.includes('view')) {
+                return '🎯 Use our AR/VR feature to view products in 3D before buying! Just click the cube icon on any product card to see it in augmented reality. It\'s like having the product right in front of you!';
+            }
+            
+            if (lowerMessage.includes('payment') || lowerMessage.includes('pay')) {
+                return '💳 We accept all payment methods: Credit/Debit Cards, UPI, Net Banking, Wallets, and Cash on Delivery. All transactions are 100% secure!';
+            }
+            
+            return `I understand you're asking about "${message}". Our products are fresh, organic, and delivered within 30 minutes! We have a wide range of fruits, vegetables, juices, shakes, and local gems. Is there anything specific you'd like to know about?`;
+        }
+
+        // Product Actions
+        function viewProduct3D(productId) {
+            const product = products.find(p => p.id === productId);
+            showToast(`🎯 Opening AR/3D view for ${product.name}...`);
+            // In real implementation, this would launch AR viewer
+        }
+
+        function viewQRCode(productId) {
+            const product = products.find(p => p.id === productId);
+            showToast(`📱 Showing QR verification for ${product.name}`);
+            // In real implementation, this would show QR code modal
+        }
+
+        function toggleWishlist(productId) {
+            const product = products.find(p => p.id === productId);
+            showToast(`❤️ ${product.name} added to wishlist!`);
+        }
+
+        // Modal Functions
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('show');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('show');
+        }
+
+        // Toast Notification
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // Close modals on outside click
+        document.querySelectorAll('.modal').forEach(modal => {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.classList.remove('show');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+
